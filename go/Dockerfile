@@ -13,12 +13,7 @@ COPY --from=goruntime /tmp/go /go
 ENV PATH="/go/bin:${PATH}"
 
 RUN sudo apt update \
-    && sudo apt install apt-transport-https ca-certificates build-essential
-
-# Add droplet.sh
-RUN sudo curl -sSL "https://raw.githubusercontent.com/ggicci/droplet.sh/v0.1.0/droplet.sh" -o /usr/bin/droplet.sh
-
-# TODO(ggicci): add some droplets
+    && sudo apt install -y apt-transport-https ca-certificates build-essential
 
 # Add bootstrap.sh
 ADD --chmod=755 bootstrap.sh /usr/bin/bootstrap.sh
