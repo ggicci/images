@@ -4,8 +4,9 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+
 # Environment Variables
-# * IO4_SOURCE_PROJECT_NAME
+# * IO4_SOURCE_PROJECT_ROOT
 # * IO4_SOURCE_REPO_URL
 
 # NOTE: current working directory is /home/coder
@@ -19,18 +20,15 @@ abort() {
   exit 1
 }
 
+
 io4::clone_source_code() {
-  [[ "${IO4_SOURCE_PROJECT_NAME}" = *"/"* ]] && abort "invalid IO4_SOURCE_PROJECT_NAME: slash not allowed"
-
-  local project_root="/home/coder/${IO4_SOURCE_PROJECT_NAME}"
-
-  if [[ -d "${project_root}/.git" ]]; then
+  if [[ -d "${IO4_SOURCE_PROJECT_ROOT}/.git" ]]; then
     >&2 echo "io4go: source code already cloned, skip"
     return
   fi
 
-  git clone "${IO4_SOURCE_REPO_URL}" "${project_root}"
-  echo "${project_root}"
+  git clone "${IO4_SOURCE_REPO_URL}" "${IO4_SOURCE_PROJECT_ROOT}"
+  echo "${IO4_SOURCE_PROJECT_ROOT}"
 }
 
 io4::install_code_extensions() {
@@ -39,19 +37,15 @@ io4::install_code_extensions() {
 }
 
 main() {
-  local project_root
-
-  project_root="$( io4::clone_source_code )"
+  io4::clone_source_code
   io4::install_code_extensions
-
-  echo "Current working directory: $( pwd )"
 
   # Call code-server's entrypoint.sh
   /usr/bin/entrypoint.sh \
     --disable-telemetry \
     --disable-update-check \
-    --bind-addr "0.0.0.0:8080" \
-    "${project_root}"
+    --bind-addr "0.0.0.0:80" \
+    "${IO4_SOURCE_PROJECT_ROOT}"
 }
 
 main "$@"
