@@ -6,15 +6,15 @@ set -o pipefail
 
 
 # Environment Variables
-# * IO4_SOURCE_PROJECT_ROOT
-# * IO4_SOURCE_REPO_URL
+# * IO4_PROJECT_ROOT
+# * IO4_PROJECT_SOURCE
 
 # NOTE: current working directory is /home/coder
 # TODO(ggicci): introduce io4run: https://github.com/ggicci/io4run
 
 abort() {
   { if [ "$#" -eq 0 ]; then cat -
-    else echo "io4go: $*"
+    else echo "io4-go: $*"
     fi
   } >&2
   exit 1
@@ -22,13 +22,13 @@ abort() {
 
 
 io4::clone_source_code() {
-  if [[ -d "${IO4_SOURCE_PROJECT_ROOT}/.git" ]]; then
-    >&2 echo "io4go: source code already cloned, skip"
+  if [[ -d "${IO4_PROJECT_ROOT}/.git" ]]; then
+    >&2 echo "io4-go: source code already cloned, skip"
     return
   fi
 
-  git clone "${IO4_SOURCE_REPO_URL}" "${IO4_SOURCE_PROJECT_ROOT}"
-  echo "${IO4_SOURCE_PROJECT_ROOT}"
+  git clone "${IO4_PROJECT_SOURCE}" "${IO4_PROJECT_ROOT}"
+  echo "${IO4_PROJECT_ROOT}"
 }
 
 io4::install_code_extensions() {
@@ -45,7 +45,7 @@ main() {
     --disable-telemetry \
     --disable-update-check \
     --bind-addr "0.0.0.0:80" \
-    "${IO4_SOURCE_PROJECT_ROOT}"
+    "${IO4_PROJECT_ROOT}"
 }
 
 main "$@"
