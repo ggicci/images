@@ -1,0 +1,23 @@
+---
+version: "3"
+services:
+  io4-workspace:
+    image: io4io/go-1.16.13:0.1.0
+    container_name: LS7V2ZnTQb4CEbFJZKg4
+    restart: unless-stopped
+    volumes:
+      - "./io4-workspaces/LS7V2ZnTQb4CEbFJZKg4/home:/home/coder"
+    environment:
+      - TZ=Asia/Shanghai
+      - PASSWORD=19911110
+      - IO4_WORKSPACE_ROOT=/home/coder/workspace
+      - IO4_SOURCE_CODE=https://github.com/ggicci/httpin
+      - IO4_CODE_EXTENSIONS=golang.go,eamodio.gitlens
+    ports:
+      - "8888:80"
+    security_opt:
+      - seccomp:unconfined # https://github.com/go-delve/delve/issues/515#issuecomment-214911481
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

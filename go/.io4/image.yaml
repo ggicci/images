@@ -1,0 +1,15 @@
+---
+image:
+  name: "io4io/go-1.16.13:0.1.0"
+  environments:
+  - key: IO4_WORKSPACE_ROOT
+    default: /home/coder/workspace
+    required: true
+    description: The root directory of this workspace.
+  - key: IO4_SOURCE_CODE
+    required: false
+    description: The URL of the source code, of a git repository.
+  - key: IO4_CODE_EXTENSIONS
+    required: false
+    default: golang.go,eamodio.gitlens
+    description: Which code extensions to install at bootstrap.
