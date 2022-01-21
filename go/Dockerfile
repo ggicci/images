@@ -13,13 +13,12 @@ RUN /opt/go/bin/go get -v github.com/fatih/gomodifytags
 RUN /opt/go/bin/go get -v github.com/josharian/impl
 RUN /opt/go/bin/go get -v github.com/haya14busa/goplay/cmd/goplay
 RUN /opt/go/bin/go get -v github.com/go-delve/delve/cmd/dlv
+RUN ln -s /opt/go/bin/dlv /opt/go/bin/dlv-dap
 RUN /opt/go/bin/go get -v honnef.co/go/tools/cmd/staticcheck
 RUN /opt/go/bin/go get -v golang.org/x/tools/gopls
 
 # unset GOPATH
-USER coder
-ENV GOPATH=
-ENV PATH="/home/coder/go/bin:/opt/go/bin:${PATH}"
+ENV PATH="/root/go/bin:/opt/go/bin:${PATH}"
 COPY boot.sh /usr/bin/boot.sh
 
 ENTRYPOINT [ "/usr/bin/boot.sh" ]

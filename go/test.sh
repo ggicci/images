@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 WORKSPACE_ID=LS7V2ZnTQb4CEbFJZKg4
-WORKSPACE_HOME="${PWD}/io4-workspaces/${WORKSPACE_ID}/home"
+WORKSPACE_HOME="${PWD}/io4-workspaces/${WORKSPACE_ID}"
 mkdir -p "${WORKSPACE_HOME}"
 
 # docker run \

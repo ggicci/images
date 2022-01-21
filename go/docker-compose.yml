@@ -6,11 +6,11 @@ services:
     container_name: LS7V2ZnTQb4CEbFJZKg4
     restart: unless-stopped
     volumes:
-      - "./io4-workspaces/LS7V2ZnTQb4CEbFJZKg4/home:/home/coder"
+      - "./io4-workspaces/LS7V2ZnTQb4CEbFJZKg4:/root"
     environment:
       - TZ=Asia/Shanghai
       - PASSWORD=19911110
-      - IO4_WORKSPACE_ROOT=/home/coder/workspace
+      - IO4_WORKSPACE_ROOT=/root/workspace
       - IO4_SOURCE_CODE=https://github.com/ggicci/httpin
       - IO4_CODE_EXTENSIONS=golang.go,eamodio.gitlens
     ports:
