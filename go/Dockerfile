@@ -1,10 +1,10 @@
-FROM codercom/code-server:3.12.0
+FROM io4io/blank-3.12.0:1.0.0
 
-USER root
-RUN apt update && apt install -y apt-transport-https ca-certificates build-essential
+# Install Go.
 RUN curl -sL https://golang.org/dl/go1.16.13.linux-amd64.tar.gz -o /tmp/go.tar.gz
 RUN tar zxf /tmp/go.tar.gz -C /opt
-# pre-install tools for vscode "golang.go" extension
+
+# Install Go tools, for vscode "golang.go" extension.
 ENV GOPATH=/opt/go
 RUN /opt/go/bin/go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs
 RUN /opt/go/bin/go get -v github.com/ramya-rao-a/go-outline
@@ -17,9 +17,7 @@ RUN ln -s /opt/go/bin/dlv /opt/go/bin/dlv-dap
 RUN /opt/go/bin/go get -v honnef.co/go/tools/cmd/staticcheck
 RUN /opt/go/bin/go get -v golang.org/x/tools/gopls
 
+# User GO environment settings.
 # unset GOPATH
 ENV GOPATH=
 ENV PATH="/root/go/bin:/opt/go/bin:${PATH}"
-COPY boot.sh /usr/bin/boot.sh
-
-ENTRYPOINT [ "/usr/bin/boot.sh" ]

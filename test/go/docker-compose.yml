@@ -2,11 +2,11 @@
 version: "3"
 services:
   io4-workspace:
-    image: io4io/go-1.16.13:0.1.0
-    container_name: LS7V2ZnTQb4CEbFJZKg4
+    image: io4io/go-1.16.13:1.0.0
+    container_name: io4test-go
     restart: unless-stopped
     volumes:
-      - "./io4-workspaces/LS7V2ZnTQb4CEbFJZKg4:/root"
+      - "./io4-workspaces/io4test-go:/root"
     environment:
       - TZ=Asia/Shanghai
       - PASSWORD=19911110

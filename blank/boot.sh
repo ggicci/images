@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
 # NOTE: current working directory is /home/coder
 
 # Environment Variables (from .io4/image.yaml)
@@ -14,6 +10,7 @@ set -o pipefail
 
 # TODO(ggicci): introduce io4run: https://github.com/ggicci/io4run
 
+
 abort() {
   { if [ "$#" -eq 0 ]; then cat -
     else echo "io4run: $*"
@@ -22,27 +19,12 @@ abort() {
   exit 1
 }
 
-io4::clone_source_code() {
-  mkdir -p "${IO4_WORKSPACE_ROOT}"
-
-  if [[ -d "${IO4_WORKSPACE_ROOT}/.git" ]]; then
-    >&2 echo "io4run: source code already cloned, skip"
-    return
-  fi
-
-  git clone "${IO4_SOURCE_CODE}" "${IO4_WORKSPACE_ROOT}"
-}
-
-io4::install_code_extensions() {
-  for name in $( echo ${IO4_CODE_EXTENSIONS} | sed 's/,/ /g' ); do
-    echo "io4run: install code extension: ${name}"
-    /usr/bin/code-server --install-extension "${name}"
-  done
-}
-
 main() {
-  io4::clone_source_code
-  io4::install_code_extensions
+  # Run shell scripts: /opt/io4run/startup/*.sh
+  for script in /opt/io4run/startup/*.sh; do
+    echo "io4run: ${script}"
+    "${script}"
+  done
 
   # Call code-server's entrypoint.sh
   /usr/bin/entrypoint.sh \

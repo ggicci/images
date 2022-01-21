@@ -1,0 +1,23 @@
+---
+version: "3"
+services:
+  io4-workspace:
+    image: io4io/python-3.9.10:1.0.0
+    container_name: io4test-python
+    restart: unless-stopped
+    volumes:
+      - "./io4-workspaces/io4test-python:/root"
+    environment:
+      - TZ=Asia/Shanghai
+      - PASSWORD=19911110
+      - IO4_WORKSPACE_ROOT=/root/workspace
+      - IO4_SOURCE_CODE=https://github.com/psf/requests
+      - IO4_CODE_EXTENSIONS=ms-python.python,eamodio.gitlens
+    ports:
+      - "8888:80"
+    security_opt:
+      - seccomp:unconfined # https://github.com/go-delve/delve/issues/515#issuecomment-214911481
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

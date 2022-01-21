@@ -10,5 +10,5 @@ image:
       description: The URL of the source code, of a git repository.
     - key: IO4_CODE_EXTENSIONS
       required: false
-      default: golang.go,eamodio.gitlens
+      default: eamodio.gitlens,esbenp.prettier-vscode
       description: Which code extensions to install at bootstrap.
