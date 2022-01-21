@@ -18,6 +18,7 @@ RUN /opt/go/bin/go get -v honnef.co/go/tools/cmd/staticcheck
 RUN /opt/go/bin/go get -v golang.org/x/tools/gopls
 
 # unset GOPATH
+ENV GOPATH=
 ENV PATH="/root/go/bin:/opt/go/bin:${PATH}"
 COPY boot.sh /usr/bin/boot.sh
 
